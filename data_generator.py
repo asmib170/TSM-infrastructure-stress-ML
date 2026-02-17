@@ -38,6 +38,14 @@ CREATE TABLE IF NOT EXISTS infrastructure_usage (
 conn.commit()
 
 
+# Resetting old data (optional but recommended for clean regeneration)
+
+# Deleting existing rows so the synthetic data does not keep duplicating every time you run this script
+cursor.execute("DELETE FROM infrastructure_usage")
+
+# Committing the deletion changes to the database
+conn.commit()
+
 
 # Resource configuration (TSM-specific)
 
@@ -45,6 +53,7 @@ conn.commit()
 resources = {
     "MPR_Equipped": 2,   # 2 MPRs with mixer + monitors
     "MPR_Basic": 1,      # only 1 usable (others moldy)
+    "MPR_Moldy": 2,      # 2 moldy MPRs (rarely used)
     "MP_Lab": 2,
     "Live_Room": 1,
     "Studio": 1
@@ -53,9 +62,8 @@ resources = {
 # Defining the days of the week for usage simulation
 days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-# Defining the daily time slots for infrastructure usage
-time_slots = ["Morning", "Afternoon", "Evening", "Night"]
-
+# Defining the daily time slots for infrastructure usage (more precise peak slots)
+time_slots = ["Morning", "Afternoon", "Peak_6_8", "Gap_8_9", "Peak_9_12"]
 
 
 # Exam phase mapping (12-week term)
@@ -84,8 +92,10 @@ def get_exam_phase(week):
         return "Regular"
 
 
-
 # Generating synthetic data
+
+# Defining the exam phases where peak hours actually spike strongly
+EXAM_PEAK_PHASES = {"UT1", "Mid-Term", "UT2", "End-Term"}
 
 # Initializing an empty list to store generated infrastructure records
 records = []
@@ -108,17 +118,29 @@ for week in range(1, 13):
                 # Generating a base number of booking requests
                 booking_requests = random.randint(0, capacity + 2)
 
-                # Increasing demand during night-time practice hours
-                if slot == "Night":
-                    booking_requests += random.randint(2, 5)
+                # Increasing demand during peak practice hours ONLY in exam peak phases
+                if exam_phase in EXAM_PEAK_PHASES and slot in ["Peak_6_8", "Peak_9_12"]:
+                    booking_requests += random.randint(4, 8)
 
-                # Increasing demand during examination periods
-                if exam_phase != "Regular":
-                    booking_requests += random.randint(3, 7)
+                # Keeping peaks mild during regular weeks
+                elif exam_phase == "Regular" and slot in ["Peak_6_8", "Peak_9_12"]:
+                    booking_requests += random.randint(1, 3)
+
+                # Adding mild demand during the gap hour (8–9 PM)
+                if slot == "Gap_8_9":
+                    booking_requests += random.randint(0, 2)
+
+                # Adding overall exam pressure across the day (smaller than peak boost)
+                if exam_phase in EXAM_PEAK_PHASES:
+                    booking_requests += random.randint(1, 3)
 
                 # Reducing booking demand for underutilized basic MPRs
                 if resource == "MPR_Basic":
-                    booking_requests = max(0, booking_requests - 3)
+                    booking_requests = max(0, booking_requests - 2)
+
+                # Keeping moldy MPR usage near-zero even during peak and exam weeks
+                if resource == "MPR_Moldy":
+                    booking_requests = random.randint(0, 1)
 
                 # Calculating the stress score as demand-to-capacity ratio
                 stress_score = round(booking_requests / capacity, 2)
@@ -134,7 +156,6 @@ for week in range(1, 13):
                     booking_requests,
                     stress_score
                 ))
-
 
 
 # Inserting data into SQLite

@@ -1,0 +1,6 @@
+models/
+catboost_info/
+*.db
+*.zip
+*.docx
+__pycache__/

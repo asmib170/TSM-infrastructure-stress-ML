@@ -1,91 +1,130 @@
-TSM Infrastructure Stress Prediction System
+TSM (True School of Music) Infrastructure Stress Prediction System
 
-Project Overview:
+Project Overview:-
 This project was developed as part of Hackathon 3, which focuses on converting machine learning models into usable, maintainable systems rather than standalone notebooks.
-The objective of this project is to analyze and predict infrastructure stress at the True School of Music (TSM) by modeling demand patterns for limited resources such as Music Practice Rooms (MPRs), Music Production Labs, the Live Room, and the Studio.
-The system demonstrates a complete ML engineering pipeline including data generation, SQL-based storage, model training, prediction readiness, dashboarding, and version control.
+The objective of this system is to analyze and predict infrastructure demand and stress at the True School of Music (TSM) by modeling usage patterns for limited resources such as:
+1. Music Practice Rooms (MPRs – Equipped, Basic, Moldy)
+2. Music Production Labs
+3. Live Room
+4. Studio
+The project demonstrates a complete ML engineering lifecycle including:
+1. Synthetic data generation
+2. SQL-based storage
+3. Feature engineering
+4. Multi-model training & comparison
+5. Automated best-model selection
+6. Model serialization
+7. Explainability & diagnostics
+8. Interactive dashboard deployment
+9. Version control and maintainability
 
-Problem Statement:
-TSM has limited music infrastructure, and during peak academic periods (especially near exams), demand for well-equipped spaces increases sharply. Some resources are consistently overbooked while others remain underutilized due to factors such as equipment availability or room conditions.
+Problem Statement:-
+TSM operates with limited music infrastructure. During peak academic periods (especially exam weeks), demand for well-equipped spaces increases sharply.
+Some resources are consistently overbooked while others remain underutilized due to:
+1. Equipment availability
+2. Room condition (e.g., moldy rooms)
+3. Time-slot demand patterns
+4. Academic calendar effects
 Currently, there is no data-driven way to:
-1. Measure infrastructure stress
-2. Compare demand across resources
-3. Predict future stress levels based on usage patterns
-This project addresses that gap by modeling infrastructure usage and predicting stress scores to support better planning and decision-making.
+1. Quantify infrastructure stress
+2. Compare demand patterns across resources
+3. Predict booking demand during peak periods
+4. Identify bottlenecks
+This system addresses that gap by modeling booking demand and computing stress scores (demand ÷ capacity) to support planning and decision-making.
 
-Data Description:
-Since real booking data is not publicly available, synthetic data is generated to realistically reflect student usage behavior.
-Synthetic data because:
-1. Ensures privacy
-2. Allows controlled simulation of peak demand scenarios
-3. Enables repeatable experiments without static CSV files
-The data includes:
-1. Resource type (MPR, Studio, Lab, etc.)
+Data Description:-
+Since real booking data is not publicly available, synthetic data is generated to realistically simulate student usage behavior.
+Synthetic data allows:
+1. Privacy preservation
+2. Controlled simulation of exam demand spikes
+3. Repeatable experimentation
+4. Weekly retraining scenarios
+The dataset includes:
+1. Resource type
 2. Effective capacity
 3. Academic week (12-week term)
-4. Day of week and time slot
-5. Exam phase (UT1, Mid-Term, UT2, End-Term)
-6. Booking requests
-7. Computed stress score (demand ÷ capacity)
-All data is stored in an SQLite database, simulating a production-style data pipeline.
+4. Day of week
+5. Time slot (Morning, Afternoon, Peak 6–8 PM, Peak 9–12 AM)
+6. Exam phase (Regular, UT1, Mid-Term, UT2, End-Term)
+7. Booking requests (target variable)
+8. Computed stress score (booking_requests ÷ capacity)
+All data is stored in an SQLite database to simulate a production-style data pipeline.
 
-Machine Learning Models:
-Three traditional machine learning models were trained and evaluated:
+Machine Learning Models:-
+Five machine learning models were trained and evaluated:
 1. Linear Regression
 2. Decision Tree Regressor
 3. Random Forest Regressor
-Model performance was compared using RMSE, and the Random Forest model was selected as the final model due to its superior performance and ability to capture non-linear demand patterns.
-The trained model is serialized using pickle and loaded dynamically by the dashboard for real-time predictions.
+4. XGBoost Regressor
+5. CatBoost Regressor
+Models were evaluated using:
+1. RMSE (Root Mean Squared Error)
+2. MAE (Mean Absolute Error)
+3. R² Score (Coefficient of Determination)
+The system automatically selects the best-performing model based on lowest RMSE.
+Currently, CatBoost demonstrates the strongest overall performance and is deployed as the active prediction model.
 
-Dashboard & Predictions:
-A Streamlit dashboard provides:
-1. Preview of infrastructure usage data
-2. Visualization of average stress scores by resource type
-3. Interactive prediction interface where users can:
- a. Select resource type, time slot, exam phase, and week
- b. Input expected booking requests
- c. Receive a predicted infrastructure stress score
-This makes the model prediction-ready and usable.
+Model Diagnostics & Explainability:-
+The system includes:
+1. Model comparison table (RMSE / MAE / R²)
+2. Residual error distribution (Actual − Predicted)
+3. Feature importance visualization
+4. Automatic best-model deployment
+This ensures the system is not only predictive but also interpretable and maintainable.
 
-Model Lifecycle & Maintenance:
-The system is designed to support a realistic ML lifecycle:
-1. New data can be generated periodically using data_generator.py
+Dashboard & Prediction System:-
+The Streamlit dashboard provides:
+1. Infrastructure usage preview
+2. Stress analysis by resource type
+3. Week & exam-phase filtered analysis
+4. Demand prediction interface
+Prediction flow:
+1. User selects resource, time slot, exam phase, week, and capacity
+2. Model predicts booking demand
+3. Stress score is computed dynamically
+The dashboard always reflects the latest retrained model.
+
+Model Lifecycle & Maintenance:-
+The system supports realistic ML lifecycle management:
+1. New data can be appended weekly using data_generator.py
 2. The model can be retrained using train_model.py
-3. Updated models can be deployed without changing the dashboard logic
-This mirrors real-world ML workflows where data evolves over time and models require maintenance.
+3. Best-performing model is automatically redeployed
+4. Evaluation metrics and residual diagnostics update dynamically
+This mirrors real-world ML system maintenance.
 
-Project Structure:
+Project Structure
 TSM-infrastructure-stress-ML
 │
 ├── data_generator.py      # Generates synthetic infrastructure usage data
 ├── train_model.py         # Trains and evaluates ML models
 ├── dashboard.py           # Streamlit dashboard for analysis and prediction
+├── dataset.py             # Data preparation pipeline
 ├── check_db.py            # Utility to inspect SQLite tables
 ├── requirements.txt       # Project dependencies
 ├── README.md              # Project documentation
-├── models/                # Stores trained models (ignored in Git)
-└── .gitignore             # Ignores generated DB and model files
+├── models/                # Stored trained models (ignored in Git)
+└── .gitignore             # Ignores DB and model artifacts
 
-How to Run the Project:
-1. Install dependencies
+How to Run:-
+1. Install dependencies:
 pip install -r requirements.txt
-
-2. Generate data
+2. Generate synthetic data:
 python data_generator.py
-
-3. Train the model
+3. Train models and select best model:
 python train_model.py
+4. Launch dashboard:
+5. python -m streamlit run dashboard.py
 
-4. Launch the dashboard
-streamlit run dashboard.py
-
-Key Takeaways:
-Demonstrates end-to-end ML engineering, not just model training
-Uses SQL for data storage instead of static files
-Supports retraining and lifecycle management
-Provides an interactive, prediction-ready UI
-Built specifically around a university-relevant problem
+Key Takeaways:-
+1. Demonstrates full ML engineering pipeline (not just model training)
+2. Uses SQL instead of static CSV files
+3. Supports retraining and lifecycle management
+4. Implements boosting models (XGBoost & CatBoost)
+5. Includes evaluation diagnostics and explainability
+6. Provides a prediction-ready interactive dashboard
+7. Designed around a real university infrastructure planning problem
 
 Author:
 Asmi B.
 Hackathon 3 – Machine Learning Systems
+

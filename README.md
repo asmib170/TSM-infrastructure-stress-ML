@@ -113,7 +113,7 @@ python data_generator.py
 3. Train models and select best model:
 python train_model.py
 4. Launch dashboard:
-5. python -m streamlit run dashboard.py
+python -m streamlit run dashboard.py
 
 Key Takeaways:-
 1. Demonstrates full ML engineering pipeline (not just model training)
@@ -128,5 +128,6 @@ Author:
 Asmi B.
 
 Hackathon 3 – Machine Learning Systems
+
 
 

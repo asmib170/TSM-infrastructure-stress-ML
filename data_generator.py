@@ -8,7 +8,8 @@ import random
 # Database setup
 
 # Naming the SQLite database file to store infrastructure data
-DB_NAME = r"C:\Users\batto\OneDrive\Desktop\TSM_infrastructure_stress_ML\tsm_infrastructure.db"
+import os
+DB_NAME = os.path.join(os.path.dirname(__file__), "tsm_infrastructure.db")
 
 # Creating a connection to the SQLite database
 conn = sqlite3.connect(DB_NAME)

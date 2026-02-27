@@ -49,8 +49,8 @@ except:
 
 # Database connection
 
-# Defining the SQLite database name (keeping same absolute DB path as generator and dashboard)
-DB_NAME = r"C:\Users\batto\OneDrive\Desktop\TSM_infrastructure_stress_ML\tsm_infrastructure.db"
+# Defining the SQLite database name
+DB_NAME = os.path.join(os.path.dirname(__file__), "tsm_infrastructure.db")
 
 # Connecting to the SQLite database
 conn = sqlite3.connect(DB_NAME)
@@ -114,14 +114,23 @@ if BOOSTING_AVAILABLE:
         random_state=42
     )
 
-    # Adding CatBoost model
+    # Adding CatBoost model (tuned + supports early stopping)
     models["CatBoost"] = CatBoostRegressor(
-        iterations=300,
-        learning_rate=0.08,
+        iterations=5000,
+        learning_rate=0.03,
         depth=6,
-        random_state=42,
-        verbose=0
+        loss_function="RMSE",
+        eval_metric="RMSE",
+        l2_leaf_reg=6,
+        subsample=0.8,
+        random_strength=1,
+        bagging_temperature=1,
+        od_type="Iter",
+        od_wait=200,
+        verbose=False,
+        random_seed=42
     )
+
 
 # Dictionary to store model performance
 model_performance = {}
@@ -130,7 +139,10 @@ model_performance = {}
 for model_name, model in models.items():
 
     # Training the model
-    model.fit(X_train, y_train)
+    if model_name == "CatBoost":
+        model.fit(X_train, y_train, eval_set=(X_test, y_test), use_best_model=True)
+    else:
+        model.fit(X_train, y_train)
 
     # Making predictions on the test set
     predictions = model.predict(X_test)
@@ -198,3 +210,22 @@ metrics = {
 
 with open("models/metrics.json", "w") as f:
     json.dump(metrics, f, indent=2)
+
+
+# After selecting best_model_name and computing rmse/mae/r2 for it:
+from registry_utils import update_registry
+
+best_rmse = model_performance[best_model_name]["rmse"]
+best_mae  = model_performance[best_model_name]["mae"]
+best_r2   = model_performance[best_model_name]["r2"]
+
+update_registry(
+    model_name=best_model_name,
+    target="booking_requests",
+    rmse=best_rmse,
+    mae=best_mae,
+    r2=best_r2,
+    notes="Weekly retrain. Metrics logged automatically."
+)
+
+print("model_registry.json updated with this training run.")

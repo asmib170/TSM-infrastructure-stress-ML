@@ -34,7 +34,7 @@ st.title("TSM Infrastructure Stress Dashboard")
 
 
 # Defining the database path 
-DB_NAME = r"C:\Users\batto\OneDrive\Desktop\TSM_infrastructure_stress_ML\tsm_infrastructure.db"
+DB_NAME = os.path.join(os.path.dirname(__file__), "tsm_infrastructure.db")
 
 # Creating a connection to the database
 conn = sqlite3.connect(DB_NAME)
@@ -153,10 +153,12 @@ if os.path.exists(METRICS_PATH):
             "R2": vals.get("r2", None)
         })
 
-    perf_df = pd.DataFrame(rows).sort_values("RMSE")
+    perf_df = pd.DataFrame(rows).sort_values("RMSE").reset_index(drop=True)
+    perf_df.insert(0, "Rank", range(1, len(perf_df) + 1))
+
 
     st.subheader("Model Comparison (RMSE / MAE / R²)")
-    st.dataframe(perf_df, use_container_width=True)
+    st.dataframe(perf_df, use_container_width=True, hide_index=True)
 
     # Model selection justification
     best_row = perf_df.iloc[0]

@@ -1,0 +1,25 @@
+{
+  "date": "2026-02-28",
+  "db": "C:\\Users\\batto\\OneDrive\\Documents\\GitHub\\TSM-infrastructure-stress-ML\\tsm_infrastructure.db",
+  "table": "infrastructure_usage",
+  "windows": {
+    "expected": "weeks 1-6",
+    "actual": "weeks 7-12"
+  },
+  "psi": {
+    "effective_capacity": 0.0,
+    "booking_requests": 0.01604891087463841,
+    "resource_type": 0.0,
+    "day_of_week": 0.0,
+    "time_slot": 0.0,
+    "exam_phase": 8.015785964153125
+  },
+  "flags": {
+    "effective_capacity": "low",
+    "booking_requests": "low",
+    "resource_type": "low",
+    "day_of_week": "low",
+    "time_slot": "low",
+    "exam_phase": "significant"
+  }
+}

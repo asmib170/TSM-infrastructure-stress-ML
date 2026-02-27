@@ -124,10 +124,62 @@ Key Takeaways:-
 6. Provides a prediction-ready interactive dashboard
 7. Designed around a real university infrastructure planning problem
 
+
+## Model Versioning & Drift Monitoring
+
+This system implements structured weekly model maintenance.
+
+Each retraining cycle includes:
+
+- Synthetic data regeneration
+- Multi-model retraining
+- Automated best-model selection (lowest RMSE)
+- Version logging in `model_registry.json`
+- Drift monitoring using Population Stability Index (PSI)
+- Weekly drift snapshots stored in `/reports`
+
+### Versioning Strategy
+Model versions follow semantic format:
+
+v1.0.x → Incremented automatically after each retraining cycle.
+
+Each version logs:
+- Model name
+- Target variable
+- RMSE, MAE, R²
+- Data source
+- Update notes
+- Timestamp
+
+This ensures transparent tracking of model performance progression.
+
+### Drift Monitoring
+
+Drift is computed using PSI between historical and recent data windows.
+
+Interpretation:
+- PSI < 0.1 → No significant drift
+- 0.1–0.2 → Moderate drift
+- > 0.2 → Significant drift
+
+This ensures the deployed model remains reliable under changing usage patterns (e.g., exam phase demand spikes).
+
+
+## Current Best Model
+
+Model: CatBoost  
+Target: booking_requests  
+RMSE: 1.3408  
+MAE: 1.0646  
+R²: 0.7969  
+
+Deployed automatically after retraining.
+
 Author:
 Asmi B.
 
 Hackathon 3 – Machine Learning Systems
+
 
 
 

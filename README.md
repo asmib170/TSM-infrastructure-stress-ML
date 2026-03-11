@@ -18,6 +18,8 @@ The project demonstrates a complete ML engineering lifecycle including:
 8. Interactive dashboard deployment
 9. Version control and maintainability
 
+----------------------------------
+
 Problem Statement:-
 TSM operates with limited music infrastructure. During peak academic periods (especially exam weeks), demand for well-equipped spaces increases sharply.
 Some resources are consistently overbooked while others remain underutilized due to:

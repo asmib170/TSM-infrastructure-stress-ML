@@ -1,187 +1,205 @@
-TSM (True School of Music) Infrastructure Stress Prediction System
+# 🎵 TSM Infrastructure Capacity Intelligence System
 
-Project Overview:-
-This project was developed as part of Hackathon 3, which focuses on converting machine learning models into usable, maintainable systems rather than standalone notebooks.
-The objective of this system is to analyze and predict infrastructure demand and stress at the True School of Music (TSM) by modeling usage patterns for limited resources such as:
-1. Music Practice Rooms (MPRs – Equipped, Basic, Moldy)
-2. Music Production Labs
-3. Live Room
-4. Studio
-The project demonstrates a complete ML engineering lifecycle including:
-1. Synthetic data generation
-2. SQL-based storage
-3. Feature engineering
-4. Multi-model training & comparison
-5. Automated best-model selection
-6. Model serialization
-7. Explainability & diagnostics
-8. Interactive dashboard deployment
-9. Version control and maintainability
+## Project Overview
+This project was developed as part of Hackathon 3, focusing on transforming machine learning models into usable, interpretable, and maintainable systems rather than standalone notebooks.
 
-----------------------------------
+The system analyzes and predicts **infrastructure demand and capacity pressure** at the True School of Music (TSM), modeling usage patterns for limited resources such as:
 
-Problem Statement:-
-TSM operates with limited music infrastructure. During peak academic periods (especially exam weeks), demand for well-equipped spaces increases sharply.
-Some resources are consistently overbooked while others remain underutilized due to:
-1. Equipment availability
-2. Room condition (e.g., moldy rooms)
-3. Time-slot demand patterns
-4. Academic calendar effects
-Currently, there is no data-driven way to:
-1. Quantify infrastructure stress
-2. Compare demand patterns across resources
-3. Predict booking demand during peak periods
-4. Identify bottlenecks
-This system addresses that gap by modeling booking demand and computing stress scores (demand ÷ capacity) to support planning and decision-making.
+- Music Practice Rooms (MPR – Equipped, Basic, Moldy)
+- Music Production Labs
+- Live Room
+- Studio
 
-Data Description:-
-Since real booking data is not publicly available, synthetic data is generated to realistically simulate student usage behavior.
-Synthetic data allows:
-1. Privacy preservation
-2. Controlled simulation of exam demand spikes
-3. Repeatable experimentation
-4. Weekly retraining scenarios
-The dataset includes:
-1. Resource type
-2. Effective capacity
-3. Academic week (12-week term)
-4. Day of week
-5. Time slot (Morning, Afternoon, Peak 6–8 PM, Peak 9–12 AM)
-6. Exam phase (Regular, UT1, Mid-Term, UT2, End-Term)
-7. Booking requests (target variable)
-8. Computed stress score (booking_requests ÷ capacity)
-All data is stored in an SQLite database to simulate a production-style data pipeline.
+It demonstrates a complete ML system pipeline, including:
 
-Machine Learning Models:-
-Five machine learning models were trained and evaluated:
-1. Linear Regression
-2. Decision Tree Regressor
-3. Random Forest Regressor
-4. XGBoost Regressor
-5. CatBoost Regressor
-Models were evaluated using:
-1. RMSE (Root Mean Squared Error)
-2. MAE (Mean Absolute Error)
-3. R² Score (Coefficient of Determination)
-The system automatically selects the best-performing model based on lowest RMSE.
-Currently, CatBoost demonstrates the strongest overall performance and is deployed as the active prediction model.
+- Synthetic data generation
+- SQL-based storage
+- Feature engineering
+- Multi-model training & comparison
+- Automated best-model selection
+- Model versioning & registry tracking
+- Drift monitoring (PSI)
+- Interactive decision dashboard
 
-Model Diagnostics & Explainability:-
-The system includes:
-1. Model comparison table (RMSE / MAE / R²)
-2. Residual error distribution (Actual − Predicted)
-3. Feature importance visualization
-4. Automatic best-model deployment
-This ensures the system is not only predictive but also interpretable and maintainable.
+---
 
-Dashboard & Prediction System:-
-The Streamlit dashboard provides:
-1. Infrastructure usage preview
-2. Stress analysis by resource type
-3. Week & exam-phase filtered analysis
-4. Demand prediction interface
-Prediction flow:
-1. User selects resource, time slot, exam phase, week, and capacity
-2. Model predicts booking demand
-3. Stress score is computed dynamically
-The dashboard always reflects the latest retrained model.
+## Problem Statement
+TSM operates with limited music infrastructure, and demand spikes during peak academic periods, especially exam weeks.
 
-Model Lifecycle & Maintenance:-
-The system supports realistic ML lifecycle management:
-1. New data can be appended weekly using data_generator.py
-2. The model can be retrained using train_model.py
-3. Best-performing model is automatically redeployed
-4. Evaluation metrics and residual diagnostics update dynamically
-This mirrors real-world ML system maintenance.
+### Challenges
+- High demand for equipped spaces during peak hours
+- Underutilization of certain resources such as moldy rooms
+- No structured way to measure or predict infrastructure stress
 
-Project Structure
-TSM-infrastructure-stress-ML
-│
-├── data_generator.py      # Generates synthetic infrastructure usage data
-├── train_model.py         # Trains and evaluates ML models
-├── dashboard.py           # Streamlit dashboard for analysis and prediction
-├── dataset.py             # Data preparation pipeline
-├── check_db.py            # Utility to inspect SQLite tables
-├── requirements.txt       # Project dependencies
-├── README.md              # Project documentation
-├── models/                # Stored trained models (ignored in Git)
-└── .gitignore             # Ignores DB and model artifacts
+### Current Gaps
+- Quantify capacity pressure
+- Compare demand across resources
+- Predict booking demand
+- Identify operational bottlenecks
 
-How to Run:-
-1. Install dependencies:
-pip install -r requirements.txt
-2. Generate synthetic data:
-python data_generator.py
-3. Train models and select best model:
-python train_model.py
-4. Launch dashboard:
-python -m streamlit run dashboard.py
+This system solves that by modeling booking demand and computing:
 
-Key Takeaways:-
-1. Demonstrates full ML engineering pipeline (not just model training)
-2. Uses SQL instead of static CSV files
-3. Supports retraining and lifecycle management
-4. Implements boosting models (XGBoost & CatBoost)
-5. Includes evaluation diagnostics and explainability
-6. Provides a prediction-ready interactive dashboard
-7. Designed around a real university infrastructure planning problem
+**Capacity Pressure = Demand ÷ Effective Capacity**
 
+---
 
-## Model Versioning & Drift Monitoring
+## Data Description
+Since real booking data is unavailable, synthetic data is generated to simulate realistic student behavior.
 
-This system implements structured weekly model maintenance.
+### This enables:
+- Privacy-safe experimentation
+- Controlled exam-period demand spikes
+- Repeatable retraining cycles
 
-Each retraining cycle includes:
+### Dataset includes:
+- Resource type
+- Effective capacity
+- Week (12-week academic cycle)
+- Day of week
+- Time slot (Morning, Afternoon, Peak hours)
+- Exam phase (Regular, UT1, Mid-Term, UT2, End-Term)
+- Booking requests *(target variable)*
+- Stress score *(demand ÷ capacity)*
 
-- Synthetic data regeneration
-- Multi-model retraining
-- Automated best-model selection (lowest RMSE)
-- Version logging in `model_registry.json`
-- Drift monitoring using Population Stability Index (PSI)
-- Weekly drift snapshots stored in `/reports`
+All data is stored in **SQLite**, mimicking a production-style pipeline.
 
-### Versioning Strategy
-Model versions follow semantic format:
+---
 
-v1.0.x → Incremented automatically after each retraining cycle.
+## Machine Learning Models
+The system trains and evaluates:
 
-Each version logs:
-- Model name
-- Target variable
-- RMSE, MAE, R²
-- Data source
-- Update notes
-- Timestamp
+- Linear Regression
+- Decision Tree
+- Random Forest
+- XGBoost
+- **CatBoost (Best Model)**
 
-This ensures transparent tracking of model performance progression.
+### Evaluation Metrics
+- RMSE
+- MAE
+- R²
 
-### Drift Monitoring
+The system automatically selects the **best-performing model based on lowest RMSE**.
 
-Drift is computed using PSI between historical and recent data windows.
-
-Interpretation:
-- PSI < 0.1 → No significant drift
-- 0.1–0.2 → Moderate drift
-- > 0.2 → Significant drift
-
-This ensures the deployed model remains reliable under changing usage patterns (e.g., exam phase demand spikes).
-
+---
 
 ## Current Best Model
 
-Model: CatBoost  
-Target: booking_requests  
-RMSE: 1.3408  
-MAE: 1.0646  
-R²: 0.7969  
+**Model:** CatBoost  
+**Target:** `booking_requests`
 
-Deployed automatically after retraining.
+| Metric | Before | Current |
+|--------|--------|---------|
+| RMSE   | 1.34   | **0.96** |
+| MAE    | 1.06   | **0.78** |
+| R²     | 0.79   | **0.88** |
 
-Author:
-Asmi B.
+Significant improvement after refining data realism and retraining.
 
+---
+
+## Capacity Pressure Interpretation
+To better reflect real-world operations, pressure is interpreted as:
+
+- **< 0.5 → Underused**
+- **0.5 – 0.8 → Healthy**
+- **0.8 – 1.6 → Near Capacity**
+- **> 1.6 → Overloaded**
+
+This ensures moderately loaded systems are not incorrectly labeled as underutilized.
+
+---
+
+## Dashboard and Decision System
+
+### Dashboard Insights
+- Total demand observed
+- Capacity pressure across resources
+- Peak usage time windows
+- Exam-phase demand trends
+
+### Key Feature
+Identifies **which resource TSM should act on first**.
+
+### Capacity Planning Simulator
+Users can:
+1. Select resource, time slot, exam phase, week, and capacity
+2. Predict demand using the trained model
+3. Evaluate resulting capacity pressure
+
+---
+
+## Model Lifecycle and Maintenance
+The system supports a realistic ML lifecycle:
+
+- Weekly synthetic data regeneration
+- Retraining with updated data
+- Automatic best-model selection
+- Version tracking via `model_registry.json`
+- Drift monitoring using PSI
+
+---
+
+## Model Versioning and Drift Monitoring
+
+### Versioning Strategy
+Model versions follow the format:
+
+`v1.0.x`
+
+Each version logs:
+- Model name
+- Metrics (RMSE, MAE, R²)
+- Data source
+- Timestamp
+
+**Latest version:** `v1.0.11`
+
+### Drift Monitoring (PSI)
+- **PSI < 0.1** → Stable
+- **0.1 – 0.2** → Moderate drift
+- **> 0.2** → Significant drift
+
+This helps ensure model reliability across changing usage patterns.
+
+---
+
+## Project Structure
+
+```text
+TSM-infrastructure-stress-ML
+│
+├── data_generator.py
+├── train_model.py
+├── dashboard.py
+├── dataset.py
+├── check_db.py
+├── requirements.txt
+├── README.md
+├── models/
+└── .gitignore
+
+## How to Run
+
+```bash
+pip install -r requirements.txt
+python data_generator.py
+python train_model.py
+streamlit run dashboard.py
+
+## Key Takeaways
+
+- End-to-end ML system (not just model training)  
+- Realistic synthetic data simulation  
+- SQL-based pipeline  
+- Model versioning and tracking  
+- Drift monitoring integration  
+- Interactive decision dashboard  
+- Strong alignment with real-world infrastructure planning  
+
+---
+
+## Author
+
+**Asmi B.**  
 Hackathon 3 – Machine Learning Systems
-
-
-
-

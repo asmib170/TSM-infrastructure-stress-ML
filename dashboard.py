@@ -309,34 +309,37 @@ def format_slot_name(slot_value: str) -> str:
     return slot_map.get(slot_value, str(slot_value).replace("_", " "))
 
 # Creating a helper function to convert the pressure score into a human-readable category.
+# Important logic: these product-facing thresholds are intentionally tuned so the system
+# feels operationally meaningful and not falsely "underused" at moderate load levels.
 def pressure_band_label(pressure_value: float) -> str:
-    # Returning Underused if the score is below 1 and demand is comfortably below capacity.
-    if pressure_value < 1.0:
+    # Returning Underused only when pressure is clearly low.
+    if pressure_value < 0.50:
         return "Underused"
 
-    # Returning Healthy if the score is slightly above or around full usage but still manageable.
-    if pressure_value < 1.3:
+    # Returning Healthy for moderate but comfortable load.
+    if pressure_value < 0.80:
         return "Healthy"
 
-    # Returning Near Capacity if the score suggests the resource is getting constrained.
-    if pressure_value < 2.0:
+    # Returning Near Capacity for the range where the system feels meaningfully utilized
+    # and potentially tighter from an operations perspective.
+    if pressure_value < 1.60:
         return "Near Capacity"
 
-    # Returning Overloaded if the score clearly shows demand is above practical capacity.
+    # Returning Overloaded when demand clearly pushes beyond comfortable capacity.
     return "Overloaded"
 
 # Creating a helper function to render a colored pressure pill in HTML.
 def render_status_pill(pressure_value: float) -> str:
-    # Returning a green pill for underused situations.
-    if pressure_value < 1.0:
+    # Returning a green pill for clearly low-pressure situations.
+    if pressure_value < 0.50:
         return '<span class="status-pill pill-underused">Underused</span>'
 
-    # Returning a blue pill for healthy situations.
-    if pressure_value < 1.3:
+    # Returning a blue pill for comfortable but active usage.
+    if pressure_value < 0.80:
         return '<span class="status-pill pill-healthy">Healthy</span>'
 
-    # Returning a yellow pill for near-capacity situations.
-    if pressure_value < 2.0:
+    # Returning a yellow pill when the system is getting tight.
+    if pressure_value < 1.60:
         return '<span class="status-pill pill-watch">Near Capacity</span>'
 
     # Returning a red pill for overloaded situations.
@@ -493,10 +496,10 @@ with kpi2:
         f"{avg_pressure:.2f} · {avg_pressure_label}",
         help=(
             "Capacity Pressure = booking requests ÷ effective capacity.\n\n"
-            "Below 1.0 = Underused\n"
-            "1.0 to 1.3 = Healthy\n"
-            "1.3 to 2.0 = Near Capacity\n"
-            "Above 2.0 = Overloaded"
+            "Below 0.5 = Underused\n"
+            "0.5 to 0.8 = Healthy\n"
+            "0.8 to 1.6 = Near Capacity\n"
+            "Above 1.6 = Overloaded"
         ),
     )
 
@@ -657,13 +660,14 @@ with main_right:
     st.caption(f"Estimates demand for the selected scenario using the deployed {best_model_name} model.")
 
     # Creating a mapping of default capacities for each resource so users are not forced to guess the number.
+    # Important logic: these defaults are kept aligned with the updated synthetic data generator.
     resource_capacity_map = {
         "Live_Room": 10,
         "Studio": 12,
         "MP_Lab": 8,
         "MPR_Basic": 6,
-        "MPR_Equipped": 7,
-        "MPR_Moldy": 4,
+        "MPR_Equipped": 6,
+        "MPR_Moldy": 5,
     }
 
     # Creating the resource dropdown so the user can select the infrastructure type.
@@ -815,18 +819,18 @@ with main_right:
         )
 
         # Displaying an office-friendly action message depending on the predicted pressure.
-        if predicted_pressure >= 2.0:
+        if predicted_pressure >= 1.60:
             # Showing an overloaded scenario message.
-            st.error("Expected demand exceeds available capacity in this scenario. Action is likely needed to prevent bottlenecks or access issues.")
-        elif predicted_pressure >= 1.3:
+            st.error("Expected demand exceeds comfortable operating capacity in this scenario. Action is likely needed to prevent bottlenecks or access issues.")
+        elif predicted_pressure >= 0.80:
             # Showing a near-capacity message.
-            st.warning("This resource is approaching its practical limit under the selected conditions. Consider adding capacity, redistributing demand, or monitoring this slot closely.")
-        elif predicted_pressure >= 1.0:
-            # Showing a healthy but actively used message.
-            st.success("This scenario appears manageable within current capacity, though the resource is still seeing active demand.")
+            st.warning("This resource is operating near capacity under the selected conditions. Consider monitoring this slot closely or adding flexible capacity if needed.")
+        elif predicted_pressure >= 0.50:
+            # Showing a healthy but active message.
+            st.success("This scenario appears active but manageable within current capacity.")
         else:
-            # Showing an underused message.
-            st.success("Expected demand remains below available capacity. This resource has room to absorb additional usage if needed.")
+            # Showing a clearly low-usage message.
+            st.success("Expected demand remains well below capacity. This resource still has room to absorb additional usage if needed.")
 
         # Closing the styled result box.
         st.markdown("</div>", unsafe_allow_html=True)
@@ -872,7 +876,7 @@ with st.expander("Technical Model Details"):
         st.markdown(
             """
             **Capacity Pressure Guide**  
-            Under 1.0 = Underused | 1.0–1.3 = Healthy | 1.3–2.0 = Near Capacity | Above 2.0 = Overloaded
+            Under 0.5 = Underused | 0.5–0.8 = Healthy | 0.8–1.6 = Near Capacity | Above 1.6 = Overloaded
             """
         )
 

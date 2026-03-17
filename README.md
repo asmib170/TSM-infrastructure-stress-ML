@@ -179,6 +179,7 @@ TSM-infrastructure-stress-ML
 ├── models/
 └── .gitignore
 
+---
 ## How to Run
 
 ```bash
@@ -186,6 +187,8 @@ pip install -r requirements.txt
 python data_generator.py
 python train_model.py
 streamlit run dashboard.py
+
+---
 
 ## Key Takeaways
 

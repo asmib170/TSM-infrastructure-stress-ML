@@ -1,14 +1,14 @@
 {
   "project_name": "TSM Infrastructure Stress ML",
   "current_best": {
-    "version": "v1.0.7",
-    "date": "2026-02-28",
+    "version": "v1.0.11",
+    "date": "2026-03-17",
     "model_name": "CatBoost",
     "target": "booking_requests",
     "metrics": {
-      "rmse": 1.3407576283195592,
-      "mae": 1.0646109627043507,
-      "r2": 0.7969113131213732
+      "rmse": 0.9578252028502413,
+      "mae": 0.7873231407674385,
+      "r2": 0.881072774071385
     },
     "data": {
       "db": "tsm_infrastructure.db",
@@ -122,6 +122,70 @@
         "rmse": 1.3407576283195592,
         "mae": 1.0646109627043507,
         "r2": 0.7969113131213732
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.8",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.8713933429830205,
+        "mae": 0.7141478890182814,
+        "r2": 0.6656017720109781
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.9",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9940411941757469,
+        "mae": 0.7996910673508217,
+        "r2": 0.7862837148234718
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.10",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9675441762459785,
+        "mae": 0.7883988617424801,
+        "r2": 0.8225262189536241
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.11",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9578252028502413,
+        "mae": 0.7873231407674385,
+        "r2": 0.881072774071385
       },
       "data": {
         "db": "tsm_infrastructure.db",

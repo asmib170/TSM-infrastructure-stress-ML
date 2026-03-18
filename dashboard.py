@@ -62,38 +62,39 @@ st.markdown(
 
     .hero-chip {
         display: inline-block;
-        padding: 0.3rem 0.75rem;
+        padding: 0.34rem 0.82rem;
         border-radius: 999px;
-        font-size: 0.78rem;
+        font-size: 0.9rem;
         font-weight: 700;
         letter-spacing: 0.03em;
         background: rgba(0, 180, 216, 0.12);
         color: #8ee9ff;
         border: 1px solid rgba(0, 180, 216, 0.24);
-        margin-bottom: 0.65rem;
+        margin-bottom: 0.7rem;
     }
 
     .hero-title {
-        font-size: 2.35rem;
+        font-size: 2.2rem;
         font-weight: 800;
         color: #ffffff;
         line-height: 1.1;
-        margin-bottom: 0.28rem;
+        margin-bottom: 0.34rem;
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 1.14rem;
         color: #afbdd3;
         margin-bottom: 0.1rem;
         max-width: 980px;
+        line-height: 1.55;
     }
 
     .section-title {
-        font-size: 1.08rem;
-        font-weight: 700;
+        font-size: 1.34rem;
+        font-weight: 800;
         color: #eef4ff;
         margin-top: 0.25rem;
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.78rem;
     }
 
     .glass-card {
@@ -105,12 +106,12 @@ st.markdown(
     }
 
     .mini-label {
-        font-size: 0.82rem;
+        font-size: 0.98rem;
         font-weight: 700;
         color: #9eb2cf;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.28rem;
     }
 
     .big-value {
@@ -122,47 +123,47 @@ st.markdown(
     }
 
     .helper-text {
-        font-size: 0.86rem;
+        font-size: 1.08rem;
         color: #9fb0c7;
-        line-height: 1.5;
+        line-height: 1.6;
     }
 
     .alert-card {
         background: linear-gradient(90deg, rgba(255, 112, 67, 0.14), rgba(255, 193, 7, 0.08));
         border: 1px solid rgba(255, 164, 120, 0.18);
         border-radius: 18px;
-        padding: 0.9rem 1rem;
+        padding: 1rem 1.08rem;
         margin-bottom: 1rem;
         box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
     }
 
     .alert-title {
-        font-size: 0.8rem;
+        font-size: 0.94rem;
         font-weight: 800;
         letter-spacing: 0.05em;
         text-transform: uppercase;
         color: #ffd2b8;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.24rem;
     }
 
     .alert-text {
-        font-size: 0.95rem;
+        font-size: 1.12rem;
         color: #fff1e8;
-        line-height: 1.5;
+        line-height: 1.6;
     }
 
     div[data-testid="stMetric"] {
         background: linear-gradient(180deg, rgba(13, 23, 39, 0.96), rgba(16, 28, 46, 0.94));
         border: 1px solid rgba(139, 163, 196, 0.14);
         border-radius: 22px;
-        padding: 0.85rem 0.9rem 0.7rem 0.9rem;
+        padding: 0.95rem 1rem 0.8rem 1rem;
         box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
-        min-height: 125px;
+        min-height: 130px;
     }
 
     div[data-testid="stMetricLabel"] {
         color: #b8c7df;
-        font-size: 0.9rem;
+        font-size: 1.08rem;
         font-weight: 700;
     }
 
@@ -177,7 +178,7 @@ st.markdown(
         display: inline-block;
         padding: 0.42rem 0.78rem;
         border-radius: 999px;
-        font-size: 0.82rem;
+        font-size: 0.9rem;
         font-weight: 700;
         margin-top: 0.4rem;
         margin-bottom: 0.35rem;
@@ -216,8 +217,56 @@ st.markdown(
     }
 
     .streamlit-expanderHeader {
-        font-weight: 700;
+        font-weight: 800;
         color: #eef4ff;
+        font-size: 1.12rem;
+    }
+
+    .stCaption {
+        font-size: 1.08rem !important;
+        color: #aebed6 !important;
+        line-height: 1.55 !important;
+    }
+
+    label, .stSelectbox label, .stNumberInput label {
+        font-size: 1.08rem !important;
+        font-weight: 700 !important;
+        color: #eef4ff !important;
+    }
+
+    .tech-note {
+        font-size: 1.06rem;
+        color: #d7e3f5;
+        line-height: 1.6;
+        margin-bottom: 0.8rem;
+    }
+
+    .tech-subtitle {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 0.55rem;
+    }
+
+    .guide-box {
+        background: linear-gradient(180deg, rgba(15, 27, 45, 0.95), rgba(11, 21, 37, 0.96));
+        border: 1px solid rgba(139, 163, 196, 0.14);
+        border-radius: 18px;
+        padding: 0.9rem 1rem;
+        margin-top: 0.85rem;
+    }
+
+    .guide-title {
+        font-size: 1.02rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 0.28rem;
+    }
+
+    .guide-text {
+        font-size: 1.02rem;
+        color: #c8d5e8;
+        line-height: 1.6;
     }
     </style>
     """,
@@ -559,6 +608,9 @@ with main_left:
         margin=dict(l=18, r=18, t=60, b=18),
         xaxis_title="Resource Type",
         yaxis_title="Average Capacity Pressure",
+        title_font=dict(size=22),
+        xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
+        yaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
     )
 
     # Displaying the resource chart.
@@ -596,6 +648,9 @@ with main_left:
             margin=dict(l=18, r=18, t=60, b=18),
             xaxis_title="Time Slot",
             yaxis_title="Average Capacity Pressure",
+            title_font=dict(size=22),
+            xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
+            yaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
         )
 
         # Rotating x-axis labels slightly to improve readability.
@@ -627,6 +682,9 @@ with main_left:
             margin=dict(l=18, r=18, t=60, b=18),
             xaxis_title="Exam Phase",
             yaxis_title="Average Capacity Pressure",
+            title_font=dict(size=22),
+            xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
+            yaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
         )
 
         # Displaying the exam-phase chart.
@@ -637,7 +695,7 @@ with main_left:
         f"""
         <div class="glass-card">
             <div class="mini-label">Key Insight</div>
-            <div class="big-value" style="font-size:1.28rem;">{top_pressure_resource} should be reviewed first</div>
+            <div class="big-value" style="font-size:1.45rem;">{top_pressure_resource} should be reviewed first</div>
             <div class="helper-text">
                 {top_pressure_resource} shows the highest sustained pressure across the dashboard.
                 Demand is strongest during <b>{peak_pressure_window}</b>, while <b>{highest_phase}</b> shows the sharpest seasonal increase.
@@ -841,10 +899,14 @@ with main_right:
 # Creating a collapsible section for technical model information so the main dashboard stays clean for office users.
 with st.expander("Technical Model Details"):
     # Showing one short introductory line so the section feels connected to the product story.
-    st.write("The dashboard uses a forecasting model to estimate demand and convert it into capacity pressure for operational decision-making.")
-
-    # Showing the currently deployed model name.
-    st.write(f"**Deployed model:** {best_model_name}")
+    st.markdown(
+        """
+        <div class="tech-note">
+            The dashboard uses a forecasting model to estimate demand and convert it into capacity pressure for operational decision-making.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # Checking whether metrics were successfully loaded.
     if metrics_payload:
@@ -869,44 +931,77 @@ with st.expander("Technical Model Details"):
         # Converting the list of rows into a DataFrame and sorting by RMSE.
         perf_df = pd.DataFrame(rows).sort_values("RMSE").reset_index(drop=True)
 
-        # Displaying the model-comparison table.
-        st.dataframe(perf_df, use_container_width=True, hide_index=True)
-
-        # Showing a tighter single-line pressure guide so the technical section stays compact.
-        st.markdown(
-            """
-            **Capacity Pressure Guide**  
-            Under 0.5 = Underused | 0.5–0.8 = Healthy | 0.8–1.6 = Near Capacity | Above 1.6 = Overloaded
-            """
-        )
-
         # Extracting residuals if they were saved in the metrics payload.
         residuals = metrics_payload.get("residuals", [])
 
-        # Plotting residuals only if they exist and are in list form.
-        if isinstance(residuals, list) and len(residuals) > 0:
-            # Creating a small DataFrame for residual plotting.
-            residual_df = pd.DataFrame({"Residual": residuals})
+        # Creating two compact columns so the deployed-model table and residual chart sit next to each other.
+        tech_left, tech_right = st.columns([1.15, 1], gap="large")
 
-            # Building a histogram of residual errors.
-            fig_residual = px.histogram(
-                residual_df,
-                x="Residual",
-                nbins=30,
-                title="Residual Error Distribution",
+        # Building the left side with deployed model info and compact performance table.
+        with tech_left:
+            # Showing the currently deployed model name.
+            st.markdown(
+                f"""
+                <div class="tech-subtitle">Deployed Model: {best_model_name}</div>
+                """,
+                unsafe_allow_html=True,
             )
 
-            # Styling the histogram to match the dashboard's dark theme.
-            fig_residual.update_layout(
-                height=320,
-                paper_bgcolor="rgba(0,0,0,0)",
-                plot_bgcolor="rgba(13,23,39,0.96)",
-                font_color="#eef4ff",
-                margin=dict(l=18, r=18, t=60, b=18),
+            # Displaying the model-comparison table in a compact way.
+            st.dataframe(
+                perf_df,
+                use_container_width=True,
+                hide_index=True,
+                height=215,
             )
 
-            # Displaying the residual histogram.
-            st.plotly_chart(fig_residual, use_container_width=True)
+        # Building the right side with the residual chart.
+        with tech_right:
+            # Plotting residuals only if they exist and are in list form.
+            if isinstance(residuals, list) and len(residuals) > 0:
+                # Creating a small DataFrame for residual plotting.
+                residual_df = pd.DataFrame({"Residual": residuals})
+
+                # Building a histogram of residual errors.
+                fig_residual = px.histogram(
+                    residual_df,
+                    x="Residual",
+                    nbins=24,
+                    title="Residual Error Distribution",
+                )
+
+                # Styling the histogram to match the dashboard's dark theme while keeping it compact.
+                fig_residual.update_layout(
+                    height=260,
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    plot_bgcolor="rgba(13,23,39,0.96)",
+                    font_color="#eef4ff",
+                    margin=dict(l=10, r=10, t=50, b=10),
+                    title_font=dict(size=18),
+                    xaxis_title="Residual",
+                    yaxis_title="Count",
+                    xaxis=dict(title_font=dict(size=14), tickfont=dict(size=12)),
+                    yaxis=dict(title_font=dict(size=14), tickfont=dict(size=12)),
+                )
+
+                # Displaying the residual histogram.
+                st.plotly_chart(fig_residual, use_container_width=True)
+            else:
+                # Showing a note if residuals are unavailable.
+                st.info("Residual data is not available in the metrics file.")
+
+        # Showing the pressure guide below both side-by-side components.
+        st.markdown(
+            """
+            <div class="guide-box">
+                <div class="guide-title">Capacity Pressure Guide</div>
+                <div class="guide-text">
+                    Under 0.5 = Underused | 0.5–0.8 = Healthy | 0.8–1.6 = Near Capacity | Above 1.6 = Overloaded
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     # Showing a note if no metrics file is found yet.
     else:

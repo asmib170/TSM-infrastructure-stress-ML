@@ -30,16 +30,17 @@ st.set_page_config(
     layout="wide",
 )
 
-# Injecting custom CSS to give the dashboard a premium startup-style look and to use more screen width.
+# Injecting custom CSS to give the dashboard a richer, more colorful premium look.
 # Important syntax: st.markdown(..., unsafe_allow_html=True) allows raw HTML and CSS rendering.
 st.markdown(
     """
     <style>
     .stApp {
         background:
-            radial-gradient(circle at top left, rgba(44, 84, 160, 0.18), transparent 30%),
-            radial-gradient(circle at top right, rgba(0, 180, 216, 0.12), transparent 28%),
-            linear-gradient(180deg, #07101d 0%, #091423 40%, #0b1728 100%);
+            radial-gradient(circle at 8% 12%, rgba(0, 216, 255, 0.16), transparent 24%),
+            radial-gradient(circle at 88% 14%, rgba(168, 85, 247, 0.15), transparent 26%),
+            radial-gradient(circle at 70% 84%, rgba(255, 102, 163, 0.10), transparent 22%),
+            linear-gradient(180deg, #050b16 0%, #081325 38%, #0a1830 100%);
         color: #f5f7fb;
     }
 
@@ -52,11 +53,14 @@ st.markdown(
     }
 
     .hero-wrap {
-        background: linear-gradient(135deg, rgba(17, 28, 47, 0.92), rgba(12, 20, 35, 0.88));
-        border: 1px solid rgba(140, 166, 201, 0.15);
-        border-radius: 26px;
-        padding: 1.35rem 1.45rem 1.15rem 1.45rem;
-        box-shadow: 0 22px 50px rgba(0, 0, 0, 0.28);
+        background:
+            linear-gradient(135deg, rgba(11, 24, 45, 0.95), rgba(10, 20, 37, 0.92)),
+            radial-gradient(circle at top right, rgba(0, 216, 255, 0.18), transparent 35%),
+            radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.16), transparent 30%);
+        border: 1px solid rgba(140, 166, 201, 0.14);
+        border-radius: 28px;
+        padding: 1.35rem 1.45rem 1.2rem 1.45rem;
+        box-shadow: 0 24px 52px rgba(0, 0, 0, 0.34);
         margin-bottom: 1rem;
     }
 
@@ -67,14 +71,14 @@ st.markdown(
         font-size: 0.9rem;
         font-weight: 700;
         letter-spacing: 0.03em;
-        background: rgba(0, 180, 216, 0.12);
-        color: #8ee9ff;
-        border: 1px solid rgba(0, 180, 216, 0.24);
+        background: linear-gradient(90deg, rgba(0, 216, 255, 0.14), rgba(168, 85, 247, 0.14));
+        color: #c7f6ff;
+        border: 1px solid rgba(135, 200, 255, 0.22);
         margin-bottom: 0.7rem;
     }
 
     .hero-title {
-        font-size: 2.2rem;
+        font-size: 2.18rem;
         font-weight: 800;
         color: #ffffff;
         line-height: 1.1;
@@ -83,7 +87,7 @@ st.markdown(
 
     .hero-subtitle {
         font-size: 1.14rem;
-        color: #afbdd3;
+        color: #b7c6dd;
         margin-bottom: 0.1rem;
         max-width: 980px;
         line-height: 1.55;
@@ -98,11 +102,13 @@ st.markdown(
     }
 
     .glass-card {
-        background: linear-gradient(180deg, rgba(13, 23, 39, 0.96), rgba(16, 28, 46, 0.94));
-        border: 1px solid rgba(139, 163, 196, 0.14);
-        border-radius: 22px;
+        background:
+            linear-gradient(180deg, rgba(10, 21, 38, 0.97), rgba(13, 27, 47, 0.95)),
+            radial-gradient(circle at top right, rgba(0, 216, 255, 0.08), transparent 32%);
+        border: 1px solid rgba(139, 163, 196, 0.13);
+        border-radius: 24px;
         padding: 1rem 1rem 0.95rem 1rem;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
     }
 
     .mini-label {
@@ -124,12 +130,14 @@ st.markdown(
 
     .helper-text {
         font-size: 1.08rem;
-        color: #9fb0c7;
+        color: #aab9cf;
         line-height: 1.6;
     }
 
     .alert-card {
-        background: linear-gradient(90deg, rgba(255, 112, 67, 0.14), rgba(255, 193, 7, 0.08));
+        background:
+            linear-gradient(90deg, rgba(255, 112, 67, 0.13), rgba(255, 193, 7, 0.07)),
+            radial-gradient(circle at right, rgba(0, 216, 255, 0.10), transparent 24%);
         border: 1px solid rgba(255, 164, 120, 0.18);
         border-radius: 18px;
         padding: 1rem 1.08rem;
@@ -152,13 +160,39 @@ st.markdown(
         line-height: 1.6;
     }
 
+    .chart-shell {
+        background:
+            linear-gradient(180deg, rgba(10, 21, 38, 0.97), rgba(13, 27, 47, 0.95)),
+            radial-gradient(circle at top right, rgba(168, 85, 247, 0.07), transparent 30%);
+        border: 1px solid rgba(139, 163, 196, 0.12);
+        border-radius: 22px;
+        padding: 0.8rem 0.9rem 0.4rem 0.9rem;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+        margin-bottom: 1rem;
+    }
+
     div[data-testid="stMetric"] {
-        background: linear-gradient(180deg, rgba(13, 23, 39, 0.96), rgba(16, 28, 46, 0.94));
-        border: 1px solid rgba(139, 163, 196, 0.14);
+        background:
+            linear-gradient(180deg, rgba(10, 21, 38, 0.97), rgba(13, 27, 47, 0.95)),
+            radial-gradient(circle at top right, rgba(0, 216, 255, 0.08), transparent 32%);
+        border: 1px solid rgba(139, 163, 196, 0.12);
         border-radius: 22px;
         padding: 0.95rem 1rem 0.8rem 1rem;
         box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
         min-height: 130px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    div[data-testid="stMetric"]:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #00d8ff, #8b5cf6, #ff6699);
+        opacity: 0.9;
     }
 
     div[data-testid="stMetricLabel"] {
@@ -191,9 +225,9 @@ st.markdown(
     }
 
     .pill-healthy {
-        background: rgba(0, 180, 216, 0.15);
+        background: rgba(0, 216, 255, 0.15);
         color: #9cecff;
-        border: 1px solid rgba(0, 180, 216, 0.28);
+        border: 1px solid rgba(0, 216, 255, 0.28);
     }
 
     .pill-watch {
@@ -209,7 +243,9 @@ st.markdown(
     }
 
     .result-box {
-        background: linear-gradient(180deg, rgba(15, 27, 45, 0.95), rgba(11, 21, 37, 0.96));
+        background:
+            linear-gradient(180deg, rgba(12, 25, 43, 0.97), rgba(10, 21, 37, 0.97)),
+            radial-gradient(circle at top right, rgba(0, 216, 255, 0.08), transparent 34%);
         border: 1px solid rgba(139, 163, 196, 0.14);
         border-radius: 20px;
         padding: 1rem;
@@ -249,7 +285,9 @@ st.markdown(
     }
 
     .guide-box {
-        background: linear-gradient(180deg, rgba(15, 27, 45, 0.95), rgba(11, 21, 37, 0.96));
+        background:
+            linear-gradient(180deg, rgba(12, 25, 43, 0.97), rgba(10, 21, 37, 0.97)),
+            radial-gradient(circle at top right, rgba(168, 85, 247, 0.08), transparent 32%);
         border: 1px solid rgba(139, 163, 196, 0.14);
         border-radius: 18px;
         padding: 0.9rem 1rem;
@@ -273,18 +311,24 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Defining the base directory so all project file paths work relative to this script.
-# Important syntax: os.path.dirname(__file__) returns the folder where the current file exists.
-BASE_DIR = os.path.dirname(__file__)
+# Defining the folder where this dashboard.py file currently exists.
+# Since dashboard.py is now inside the Dashboard folder, this gives that folder path.
+CURRENT_DIR = os.path.dirname(__file__)
 
-# Defining the database path for the SQLite file.
-DB_PATH = os.path.join(BASE_DIR, "tsm_infrastructure.db")
+# Moving one level upward to reach the main project root folder.
+# Important syntax: os.path.join(CURRENT_DIR, "..") means parent directory.
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
 
-# Defining the trained best-model pickle path.
-MODEL_PATH = os.path.join(BASE_DIR, "models", "best_model.pkl")
+# Defining the database path from the project root.
+DB_PATH = os.path.join(PROJECT_ROOT, "tsm_infrastructure.db")
 
-# Defining the metrics JSON file path.
-METRICS_PATH = os.path.join(BASE_DIR, "models", "metrics.json")
+# Defining the trained best-model pickle path from the project root.
+# The saved trained model file is now stored inside the artifacts folder.
+MODEL_PATH = os.path.join(PROJECT_ROOT, "artifacts", "best_model.pkl")
+
+# Defining the metrics JSON file path from the project root.
+# The saved model evaluation metrics file is also stored inside the artifacts folder.
+METRICS_PATH = os.path.join(PROJECT_ROOT, "artifacts", "metrics.json")
 
 # Creating a helper function to load the infrastructure dataset from SQLite into a pandas DataFrame.
 def load_data() -> pd.DataFrame:
@@ -358,8 +402,6 @@ def format_slot_name(slot_value: str) -> str:
     return slot_map.get(slot_value, str(slot_value).replace("_", " "))
 
 # Creating a helper function to convert the pressure score into a human-readable category.
-# Important logic: these product-facing thresholds are intentionally tuned so the system
-# feels operationally meaningful and not falsely "underused" at moderate load levels.
 def pressure_band_label(pressure_value: float) -> str:
     # Returning Underused only when pressure is clearly low.
     if pressure_value < 0.50:
@@ -369,13 +411,29 @@ def pressure_band_label(pressure_value: float) -> str:
     if pressure_value < 0.80:
         return "Healthy"
 
-    # Returning Near Capacity for the range where the system feels meaningfully utilized
-    # and potentially tighter from an operations perspective.
+    # Returning Near Capacity for the range where the system feels meaningfully utilized.
     if pressure_value < 1.60:
         return "Near Capacity"
 
     # Returning Overloaded when demand clearly pushes beyond comfortable capacity.
     return "Overloaded"
+
+# Creating a helper function to return a severity color based on pressure band.
+def pressure_band_color(pressure_value: float) -> str:
+    # Returning green for underused cases.
+    if pressure_value < 0.50:
+        return "#2ecc71"
+
+    # Returning cyan for healthy cases.
+    if pressure_value < 0.80:
+        return "#00d8ff"
+
+    # Returning amber for near-capacity cases.
+    if pressure_value < 1.60:
+        return "#ffc857"
+
+    # Returning red for overloaded cases.
+    return "#ef5350"
 
 # Creating a helper function to render a colored pressure pill in HTML.
 def render_status_pill(pressure_value: float) -> str:
@@ -412,7 +470,7 @@ def format_demand_range(predicted_value: float) -> str:
 # Checking whether the database file exists before proceeding.
 if not os.path.exists(DB_PATH):
     # Showing an error if the database has not been generated yet.
-    st.error("Database not found. Run `python data_generator.py` first.")
+    st.error("Database not found. Run `python -m Data.data_generator` first.")
 
     # Stopping app execution because later steps depend on the database.
     st.stop()
@@ -420,7 +478,7 @@ if not os.path.exists(DB_PATH):
 # Checking whether the saved best-model file exists before loading it.
 if not os.path.exists(MODEL_PATH):
     # Showing an error if the model has not been trained and saved yet.
-    st.error("Best model not found. Run `python train_model.py` first.")
+    st.error("Best model not found. Run `python -m Model.train_model` first.")
 
     # Stopping app execution because prediction depends on the model.
     st.stop()
@@ -431,7 +489,7 @@ data = load_data()
 # Checking whether the dataset is empty.
 if data.empty:
     # Showing an error if the table exists but contains no rows.
-    st.error("No data found in the database. Run `python data_generator.py` first.")
+    st.error("No data found in the database. Run `python -m Data.data_generator` first.")
 
     # Stopping app execution because the dashboard cannot render without data.
     st.stop()
@@ -457,11 +515,9 @@ st.markdown(
 )
 
 # Calculating the total observed booking demand across the whole dataset.
-# Important logic: sum() adds the booking_requests values, so this is total demand observed, not number of rows.
 total_demand = float(data["booking_requests"].sum())
 
 # Calculating the average pressure score across the whole dataset.
-# Important logic: this is the mean of demand / capacity, not a raw count.
 avg_pressure = float(data["stress_score"].mean())
 
 # Converting the average pressure score into a readable business label.
@@ -474,12 +530,27 @@ stress_by_resource = (
     .sort_values("stress_score", ascending=False)
 )
 
+# Adding a severity color column for the resource chart.
+stress_by_resource["severity_color"] = stress_by_resource["stress_score"].apply(pressure_band_color)
+
+# Defining the natural order of time slots so the line chart feels logical across the day.
+time_slot_order = ["Morning", "Afternoon", "Gap_8_9", "Peak_6_8", "Peak_9_12"]
+
 # Grouping data by time slot to compute average pressure per slot.
-stress_by_slot = (
-    data.groupby("time_slot", as_index=False)["stress_score"]
-    .mean()
-    .sort_values("stress_score", ascending=False)
+stress_by_slot = data.groupby("time_slot", as_index=False)["stress_score"].mean()
+
+# Converting time slots into an ordered categorical variable so the chart follows daily progression.
+stress_by_slot["time_slot"] = pd.Categorical(
+    stress_by_slot["time_slot"],
+    categories=time_slot_order,
+    ordered=True,
 )
+
+# Sorting the time-slot summary using the custom order.
+stress_by_slot = stress_by_slot.sort_values("time_slot")
+
+# Adding display labels for time slots.
+stress_by_slot["display_slot"] = stress_by_slot["time_slot"].apply(format_slot_name)
 
 # Defining the logical order of academic exam phases.
 exam_phase_order = ["Regular", "UT1", "Mid-Term", "UT2", "End-Term"]
@@ -497,12 +568,23 @@ stress_by_phase["exam_phase"] = pd.Categorical(
 # Sorting exam phases using the custom academic order.
 stress_by_phase = stress_by_phase.sort_values("exam_phase")
 
+# Creating a custom phase color palette so later exam periods feel more intense visually.
+phase_color_map = {
+    "Regular": "#00d8ff",
+    "UT1": "#42bff5",
+    "Mid-Term": "#6f7bf7",
+    "UT2": "#8b5cf6",
+    "End-Term": "#ff5ea8",
+}
+
 # Extracting the highest-pressure resource from the resource summary.
 top_pressure_resource = str(stress_by_resource.iloc[0]["resource_type"])
 
 # Extracting the highest-pressure time slot and formatting it for display.
-peak_pressure_slot_raw = str(stress_by_slot.iloc[0]["time_slot"])
-peak_pressure_window = format_slot_name(peak_pressure_slot_raw)
+peak_pressure_slot_raw = (
+    stress_by_slot.sort_values("stress_score", ascending=False).iloc[0]["time_slot"]
+)
+peak_pressure_window = format_slot_name(str(peak_pressure_slot_raw))
 
 # Extracting the exam phase with the highest seasonal pressure.
 highest_phase = str(stress_by_phase.sort_values("stress_score", ascending=False).iloc[0]["exam_phase"])
@@ -526,20 +608,15 @@ kpi1, kpi2, kpi3, kpi4 = st.columns(4, gap="large")
 
 # Rendering the total demand observed KPI.
 with kpi1:
-    # Showing the total demand observed across the dashboard data.
-    # Important syntax: help=... adds a tooltip to the metric label.
     st.metric(
         "Total Demand Observed",
         f"{total_demand:,.0f}",
         help="Total number of booking requests recorded across the current dashboard data. This reflects observed demand, not capacity.",
     )
-
-    # Adding helper text under the KPI so the number has context.
     st.caption("Total booking requests recorded across the current dashboard data.")
 
 # Rendering the average capacity pressure KPI.
 with kpi2:
-    # Showing the average pressure score together with its business meaning.
     st.metric(
         "Average Capacity Pressure",
         f"{avg_pressure:.2f} · {avg_pressure_label}",
@@ -551,32 +628,24 @@ with kpi2:
             "Above 1.6 = Overloaded"
         ),
     )
-
-    # Adding helper text under the KPI so the number has context.
     st.caption("Pressure is calculated as demand divided by available capacity.")
 
 # Rendering the top pressure resource KPI.
 with kpi3:
-    # Showing which resource is under the most pressure on average.
     st.metric(
         "Top Pressure Resource",
         top_pressure_resource,
         help="Resource experiencing the highest average demand relative to its available capacity.",
     )
-
-    # Adding helper text under the KPI.
     st.caption("Resource with the highest average pressure across the data.")
 
 # Rendering the peak pressure window KPI.
 with kpi4:
-    # Showing the time slot with the strongest average pressure.
     st.metric(
         "Peak Pressure Window",
         peak_pressure_window,
         help="Time slot where demand places the greatest pressure on available capacity.",
     )
-
-    # Adding helper text under the KPI.
     st.caption("Time slot with the highest average pressure.")
 
 # Creating the main dashboard layout with a wider analytics area and a narrower right-side planning panel.
@@ -590,6 +659,9 @@ with main_left:
     # Adding a short explanatory caption before the first chart.
     st.caption("Higher values indicate stronger demand pressure relative to available capacity.")
 
+    # Opening a styled chart container for the resource chart.
+    st.markdown('<div class="chart-shell">', unsafe_allow_html=True)
+
     # Creating the main bar chart that shows which resources need attention first.
     fig_resource = px.bar(
         stress_by_resource,
@@ -599,96 +671,152 @@ with main_left:
         text_auto=".2f",
     )
 
-    # Styling the resource chart to match the dashboard theme.
+    # Overriding the bar colors with severity-aware colors so the chart communicates pressure better.
+    fig_resource.update_traces(
+        marker_color=stress_by_resource["severity_color"],
+        marker_line_color="rgba(255,255,255,0.18)",
+        marker_line_width=1.2,
+        opacity=0.95,
+        textfont=dict(size=13, color="#ffffff"),
+        hovertemplate="<b>%{x}</b><br>Average Pressure: %{y:.2f}<extra></extra>",
+    )
+
+    # Styling the resource chart to match the richer dashboard theme.
     fig_resource.update_layout(
-        height=360,
+        height=390,
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(13,23,39,0.96)",
+        plot_bgcolor="rgba(7,18,34,0.88)",
         font_color="#eef4ff",
-        margin=dict(l=18, r=18, t=60, b=18),
+        margin=dict(l=18, r=18, t=62, b=18),
         xaxis_title="Resource Type",
         yaxis_title="Average Capacity Pressure",
-        title_font=dict(size=22),
-        xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
-        yaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
+        title_font=dict(size=24),
+        xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14), showgrid=False),
+        yaxis=dict(
+            title_font=dict(size=16),
+            tickfont=dict(size=14),
+            gridcolor="rgba(255,255,255,0.09)",
+            zeroline=False,
+        ),
+        showlegend=False,
     )
 
     # Displaying the resource chart.
     st.plotly_chart(fig_resource, use_container_width=True)
+
+    # Closing the resource chart container.
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Creating two side-by-side lower charts to keep the dashboard compact and one-screen.
     lower_left, lower_right = st.columns(2, gap="large")
 
     # Building the lower-left chart for time-slot pressure.
     with lower_left:
-        # Creating a clean copy of slot data for display label transformation.
-        slot_chart_df = stress_by_slot.copy()
-
-        # Converting internal slot names to office-friendly labels.
-        slot_chart_df["display_slot"] = slot_chart_df["time_slot"].apply(format_slot_name)
+        # Opening a styled chart container for the time-slot chart.
+        st.markdown('<div class="chart-shell">', unsafe_allow_html=True)
 
         # Adding a small caption so the chart is easier to interpret.
-        st.caption("Shows which time windows place the most pressure on available capacity.")
+        st.caption("Shows how pressure changes across the day from morning to peak-night windows.")
 
-        # Creating the bar chart showing when demand peaks.
-        fig_slot = px.bar(
-            slot_chart_df,
+        # Creating a line chart with markers because time slots follow a logical daily progression.
+        fig_slot = px.line(
+            stress_by_slot,
             x="display_slot",
             y="stress_score",
             title="When Does Demand Peak?",
-            text_auto=".2f",
+            markers=True,
         )
 
-        # Styling the slot chart for consistency with the dashboard design.
+        # Styling the time-slot line so it feels more intentional and less random.
+        fig_slot.update_traces(
+            line=dict(color="#00d8ff", width=4),
+            marker=dict(
+                size=11,
+                color="#00d8ff",
+                line=dict(color="#ffffff", width=1.5),
+            ),
+            hovertemplate="<b>%{x}</b><br>Average Pressure: %{y:.2f}<extra></extra>",
+        )
+
+        # Styling the time-slot chart for consistency with the upgraded dashboard design.
         fig_slot.update_layout(
-            height=340,
+            height=360,
             paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(13,23,39,0.96)",
+            plot_bgcolor="rgba(7,18,34,0.88)",
             font_color="#eef4ff",
             margin=dict(l=18, r=18, t=60, b=18),
             xaxis_title="Time Slot",
             yaxis_title="Average Capacity Pressure",
             title_font=dict(size=22),
-            xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
-            yaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
+            xaxis=dict(title_font=dict(size=16), tickfont=dict(size=13), showgrid=False),
+            yaxis=dict(
+                title_font=dict(size=16),
+                tickfont=dict(size=13),
+                gridcolor="rgba(255,255,255,0.09)",
+                zeroline=False,
+            ),
+            showlegend=False,
         )
-
-        # Rotating x-axis labels slightly to improve readability.
-        fig_slot.update_xaxes(tickangle=-18)
 
         # Displaying the time-slot chart.
         st.plotly_chart(fig_slot, use_container_width=True)
 
+        # Closing the time-slot chart container.
+        st.markdown("</div>", unsafe_allow_html=True)
+
     # Building the lower-right chart for exam-phase pressure.
     with lower_right:
+        # Opening a styled chart container for the exam-phase chart.
+        st.markdown('<div class="chart-shell">', unsafe_allow_html=True)
+
         # Adding a small caption so the chart is easier to interpret.
         st.caption("Compares how demand pressure shifts across regular weeks and exam phases.")
 
-        # Creating a line chart to show how demand changes across academic phases.
-        fig_phase = px.line(
+        # Creating a bar chart because exam phases are discrete categories, not a continuous timeline.
+        fig_phase = px.bar(
             stress_by_phase,
             x="exam_phase",
             y="stress_score",
             title="How Do Exam Periods Change Demand?",
-            markers=True,
+            text_auto=".2f",
+            color="exam_phase",
+            color_discrete_map=phase_color_map,
+        )
+
+        # Styling the exam-phase bar chart.
+        fig_phase.update_traces(
+            marker_line_color="rgba(255,255,255,0.18)",
+            marker_line_width=1.1,
+            opacity=0.96,
+            textfont=dict(size=12, color="#ffffff"),
+            hovertemplate="<b>%{x}</b><br>Average Pressure: %{y:.2f}<extra></extra>",
         )
 
         # Styling the exam-phase chart for the dark dashboard theme.
         fig_phase.update_layout(
-            height=340,
+            height=360,
             paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(13,23,39,0.96)",
+            plot_bgcolor="rgba(7,18,34,0.88)",
             font_color="#eef4ff",
             margin=dict(l=18, r=18, t=60, b=18),
             xaxis_title="Exam Phase",
             yaxis_title="Average Capacity Pressure",
             title_font=dict(size=22),
-            xaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
-            yaxis=dict(title_font=dict(size=16), tickfont=dict(size=14)),
+            xaxis=dict(title_font=dict(size=16), tickfont=dict(size=13), showgrid=False),
+            yaxis=dict(
+                title_font=dict(size=16),
+                tickfont=dict(size=13),
+                gridcolor="rgba(255,255,255,0.09)",
+                zeroline=False,
+            ),
+            showlegend=False,
         )
 
         # Displaying the exam-phase chart.
         st.plotly_chart(fig_phase, use_container_width=True)
+
+        # Closing the exam-phase chart container.
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Rendering a key insight card that summarizes the main story in words.
     st.markdown(
@@ -718,7 +846,6 @@ with main_right:
     st.caption(f"Estimates demand for the selected scenario using the deployed {best_model_name} model.")
 
     # Creating a mapping of default capacities for each resource so users are not forced to guess the number.
-    # Important logic: these defaults are kept aligned with the updated synthetic data generator.
     resource_capacity_map = {
         "Live_Room": 10,
         "Studio": 12,
@@ -767,17 +894,14 @@ with main_right:
 
     # Restricting week choices based on exam phase so the scenario stays logically realistic.
     if pred_phase in exam_week_map:
-        # Fixing the week for exam phases.
         pred_week = st.selectbox(
             "Week",
             [exam_week_map[pred_phase]],
             help="Week number used as part of the demand scenario.",
         )
     else:
-        # Collecting valid regular weeks when the user selects the Regular phase.
         regular_weeks = sorted(data[data["exam_phase"] == "Regular"]["week"].unique())
 
-        # Letting the user choose one of the valid regular weeks.
         pred_week = st.selectbox(
             "Week",
             regular_weeks,
@@ -788,7 +912,6 @@ with main_right:
     suggested_capacity = resource_capacity_map.get(pred_resource, 5)
 
     # Creating a capacity input with a resource-specific default value.
-    # Important syntax: help=... creates the tooltip icon beside the label.
     pred_capacity = st.number_input(
         "Effective Capacity",
         min_value=1,
@@ -818,17 +941,13 @@ with main_right:
     )
 
     # One-hot encoding the categorical columns so the input matches the training feature space.
-    # Important syntax: pd.get_dummies(...) turns categories into binary indicator columns.
     input_encoded = pd.get_dummies(input_data)
 
     # Reordering and filling the encoded columns to match the exact training feature order.
     if feature_columns is not None:
-        # Important syntax: reindex(columns=..., fill_value=0) ensures missing training columns are added back as zeroes.
         input_encoded = input_encoded.reindex(columns=feature_columns, fill_value=0)
     else:
-        # Falling back to the model's recorded feature_names_in_ if available.
         if hasattr(model, "feature_names_in_"):
-            # Reordering columns to the order expected by the model.
             input_encoded = input_encoded.reindex(columns=model.feature_names_in_, fill_value=0)
 
     # Creating the simulation button so prediction runs only after the user clicks it.
@@ -864,12 +983,13 @@ with main_right:
             unsafe_allow_html=True,
         )
 
-        # Rendering the predicted capacity pressure with a business label.
+        # Rendering the predicted capacity pressure with a business label and colored pill.
         st.markdown(
             f"""
             <div style="margin-top:0.9rem;">
                 <div class="mini-label">Expected Capacity Pressure</div>
                 <div class="big-value">{predicted_pressure:.2f} · {predicted_pressure_label}</div>
+                {render_status_pill(predicted_pressure)}
                 <div class="helper-text">Calculated as expected demand divided by effective capacity.</div>
             </div>
             """,
@@ -878,16 +998,12 @@ with main_right:
 
         # Displaying an office-friendly action message depending on the predicted pressure.
         if predicted_pressure >= 1.60:
-            # Showing an overloaded scenario message.
             st.error("Expected demand exceeds comfortable operating capacity in this scenario. Action is likely needed to prevent bottlenecks or access issues.")
         elif predicted_pressure >= 0.80:
-            # Showing a near-capacity message.
             st.warning("This resource is operating near capacity under the selected conditions. Consider monitoring this slot closely or adding flexible capacity if needed.")
         elif predicted_pressure >= 0.50:
-            # Showing a healthy but active message.
             st.success("This scenario appears active but manageable within current capacity.")
         else:
-            # Showing a clearly low-usage message.
             st.success("Expected demand remains well below capacity. This resource still has room to absorb additional usage if needed.")
 
         # Closing the styled result box.
@@ -918,18 +1034,22 @@ with st.expander("Technical Model Details"):
 
         # Looping through each model and its metrics.
         for model_name, values in perf.items():
-            # Appending a clean comparison row for each model.
             rows.append(
                 {
                     "Model": model_name,
                     "RMSE": values.get("rmse", None),
                     "MAE": values.get("mae", None),
                     "R2": values.get("r2", None),
+                    "WAPE": values.get("wape", None),
                 }
             )
 
         # Converting the list of rows into a DataFrame and sorting by RMSE.
         perf_df = pd.DataFrame(rows).sort_values("RMSE").reset_index(drop=True)
+
+        # Formatting the WAPE column into percentage form if it exists.
+        if "WAPE" in perf_df.columns:
+            perf_df["WAPE"] = perf_df["WAPE"].apply(lambda x: f"{x * 100:.2f}%" if pd.notnull(x) else x)
 
         # Extracting residuals if they were saved in the metrics payload.
         residuals = metrics_payload.get("residuals", [])
@@ -939,7 +1059,6 @@ with st.expander("Technical Model Details"):
 
         # Building the left side with deployed model info and compact performance table.
         with tech_left:
-            # Showing the currently deployed model name.
             st.markdown(
                 f"""
                 <div class="tech-subtitle">Deployed Model: {best_model_name}</div>
@@ -947,12 +1066,11 @@ with st.expander("Technical Model Details"):
                 unsafe_allow_html=True,
             )
 
-            # Displaying the model-comparison table in a compact way.
             st.dataframe(
                 perf_df,
                 use_container_width=True,
                 hide_index=True,
-                height=215,
+                height=235,
             )
 
         # Building the right side with the residual chart.
@@ -970,24 +1088,41 @@ with st.expander("Technical Model Details"):
                     title="Residual Error Distribution",
                 )
 
-                # Styling the histogram to match the dashboard's dark theme while keeping it compact.
+                # Styling the histogram to match the upgraded dashboard theme.
+                fig_residual.update_traces(
+                    marker_color="#8b5cf6",
+                    marker_line_color="rgba(255,255,255,0.18)",
+                    marker_line_width=1.0,
+                    opacity=0.95,
+                    hovertemplate="Residual: %{x:.2f}<br>Count: %{y}<extra></extra>",
+                )
+
                 fig_residual.update_layout(
-                    height=260,
+                    height=275,
                     paper_bgcolor="rgba(0,0,0,0)",
-                    plot_bgcolor="rgba(13,23,39,0.96)",
+                    plot_bgcolor="rgba(7,18,34,0.88)",
                     font_color="#eef4ff",
                     margin=dict(l=10, r=10, t=50, b=10),
                     title_font=dict(size=18),
                     xaxis_title="Residual",
                     yaxis_title="Count",
-                    xaxis=dict(title_font=dict(size=14), tickfont=dict(size=12)),
-                    yaxis=dict(title_font=dict(size=14), tickfont=dict(size=12)),
+                    xaxis=dict(
+                        title_font=dict(size=14),
+                        tickfont=dict(size=12),
+                        gridcolor="rgba(255,255,255,0.07)",
+                        zeroline=False,
+                    ),
+                    yaxis=dict(
+                        title_font=dict(size=14),
+                        tickfont=dict(size=12),
+                        gridcolor="rgba(255,255,255,0.07)",
+                        zeroline=False,
+                    ),
                 )
 
                 # Displaying the residual histogram.
                 st.plotly_chart(fig_residual, use_container_width=True)
             else:
-                # Showing a note if residuals are unavailable.
                 st.info("Residual data is not available in the metrics file.")
 
         # Showing the pressure guide below both side-by-side components.
@@ -1005,4 +1140,4 @@ with st.expander("Technical Model Details"):
 
     # Showing a note if no metrics file is found yet.
     else:
-        st.info("No technical metrics file found yet. Run `python train_model.py` to generate one.")
+        st.info("No technical metrics file found yet. Run `python -m Model.train_model` to generate one.")

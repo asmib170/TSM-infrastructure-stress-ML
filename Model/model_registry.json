@@ -1,0 +1,261 @@
+{
+  "project_name": "TSM Infrastructure Stress ML",
+  "current_best": {
+    "version": "v1.0.15",
+    "date": "2026-03-19",
+    "model_name": "CatBoost",
+    "target": "booking_requests",
+    "metrics": {
+      "rmse": 0.9752735560215976,
+      "mae": 0.8008912623174073,
+      "r2": 0.8772689930906141
+    },
+    "data": {
+      "db": "tsm_infrastructure.db",
+      "table": "infrastructure_usage"
+    },
+    "notes": "Weekly retrain. Metrics logged automatically."
+  },
+  "history": [
+    {
+      "version": "v1.0.1",
+      "date": "2026-02-27",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.4986286603487795,
+        "mae": 1.1594991986436791,
+        "r2": 0.7355984990033442
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.2",
+      "date": "2026-02-27",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.4730875041426925,
+        "mae": 1.147671356290123,
+        "r2": 0.7693968648813561
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.3",
+      "date": "2026-02-27",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.4730875041426925,
+        "mae": 1.147671356290123,
+        "r2": 0.7693968648813561
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.4",
+      "date": "2026-02-27",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.4164277993825583,
+        "mae": 1.1164376172062895,
+        "r2": 0.7867951892112599
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.5",
+      "date": "2026-02-27",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.3836597970317872,
+        "mae": 1.060522826854857,
+        "r2": 0.758062530155469
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.6",
+      "date": "2026-02-28",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.3959869328794234,
+        "mae": 1.1019987586883928,
+        "r2": 0.7723252336409462
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.7",
+      "date": "2026-02-28",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 1.3407576283195592,
+        "mae": 1.0646109627043507,
+        "r2": 0.7969113131213732
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.8",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.8713933429830205,
+        "mae": 0.7141478890182814,
+        "r2": 0.6656017720109781
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.9",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9940411941757469,
+        "mae": 0.7996910673508217,
+        "r2": 0.7862837148234718
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.10",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9675441762459785,
+        "mae": 0.7883988617424801,
+        "r2": 0.8225262189536241
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.11",
+      "date": "2026-03-17",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9578252028502413,
+        "mae": 0.7873231407674385,
+        "r2": 0.881072774071385
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.12",
+      "date": "2026-03-19",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9404786927109601,
+        "mae": 0.764104010432148,
+        "r2": 0.886119773571349
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.13",
+      "date": "2026-03-19",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9404786927109601,
+        "mae": 0.764104010432148,
+        "r2": 0.886119773571349
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.14",
+      "date": "2026-03-19",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9914947973817003,
+        "mae": 0.8079655434685383,
+        "r2": 0.87042263287258
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    },
+    {
+      "version": "v1.0.15",
+      "date": "2026-03-19",
+      "model_name": "CatBoost",
+      "target": "booking_requests",
+      "metrics": {
+        "rmse": 0.9752735560215976,
+        "mae": 0.8008912623174073,
+        "r2": 0.8772689930906141
+      },
+      "data": {
+        "db": "tsm_infrastructure.db",
+        "table": "infrastructure_usage"
+      },
+      "notes": "Weekly retrain. Metrics logged automatically."
+    }
+  ]
+}

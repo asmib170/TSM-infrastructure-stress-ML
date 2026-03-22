@@ -22,6 +22,7 @@ import math
 # Importing Plotly Express to create clean interactive charts.
 import plotly.express as px
 
+
 # Setting the Streamlit page configuration before any UI is rendered.
 # Important syntax: layout="wide" tells Streamlit to use a wider page layout.
 st.set_page_config(
@@ -311,6 +312,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
 # Defining the folder where this dashboard.py file currently exists.
 # Since dashboard.py is now inside the Dashboard folder, this gives that folder path.
 CURRENT_DIR = os.path.dirname(__file__)
@@ -330,6 +332,7 @@ MODEL_PATH = os.path.join(PROJECT_ROOT, "artifacts", "best_model.pkl")
 # The saved model evaluation metrics file is also stored inside the artifacts folder.
 METRICS_PATH = os.path.join(PROJECT_ROOT, "artifacts", "metrics.json")
 
+
 # Creating a helper function to load the infrastructure dataset from SQLite into a pandas DataFrame.
 def load_data() -> pd.DataFrame:
     # Opening a connection to the SQLite database file.
@@ -344,6 +347,7 @@ def load_data() -> pd.DataFrame:
 
     # Returning the loaded DataFrame.
     return df
+
 
 # Creating a helper function to load the saved model bundle and its metadata.
 def load_model_bundle():
@@ -375,6 +379,7 @@ def load_model_bundle():
     # Returning the loaded model, feature columns, and model name.
     return model, feature_columns, best_model_name
 
+
 # Creating a helper function to load the metrics JSON payload if the file exists.
 def load_metrics_payload() -> dict:
     # Checking if the metrics file exists before opening it.
@@ -386,6 +391,7 @@ def load_metrics_payload() -> dict:
 
     # Returning an empty dictionary if the metrics file does not exist.
     return {}
+
 
 # Creating a helper function to convert stored time-slot codes into human-friendly labels.
 def format_slot_name(slot_value: str) -> str:
@@ -400,6 +406,7 @@ def format_slot_name(slot_value: str) -> str:
 
     # Returning the mapped display value if found, otherwise replacing underscores with spaces.
     return slot_map.get(slot_value, str(slot_value).replace("_", " "))
+
 
 # Creating a helper function to convert the pressure score into a human-readable category.
 def pressure_band_label(pressure_value: float) -> str:
@@ -418,6 +425,7 @@ def pressure_band_label(pressure_value: float) -> str:
     # Returning Overloaded when demand clearly pushes beyond comfortable capacity.
     return "Overloaded"
 
+
 # Creating a helper function to return a severity color based on pressure band.
 def pressure_band_color(pressure_value: float) -> str:
     # Returning green for underused cases.
@@ -434,6 +442,7 @@ def pressure_band_color(pressure_value: float) -> str:
 
     # Returning red for overloaded cases.
     return "#ef5350"
+
 
 # Creating a helper function to render a colored pressure pill in HTML.
 def render_status_pill(pressure_value: float) -> str:
@@ -452,6 +461,7 @@ def render_status_pill(pressure_value: float) -> str:
     # Returning a red pill for overloaded situations.
     return '<span class="status-pill pill-overloaded">Overloaded</span>'
 
+
 # Creating a helper function to convert the model's exact decimal prediction into a rounded booking range.
 def format_demand_range(predicted_value: float) -> str:
     # Rounding down to the nearest whole booking request.
@@ -466,6 +476,7 @@ def format_demand_range(predicted_value: float) -> str:
 
     # Returning a clearer range format if the decimal prediction falls between two integers.
     return f"~{lower_bound} to {upper_bound} bookings"
+
 
 # Checking whether the database file exists before proceeding.
 if not os.path.exists(DB_PATH):
@@ -499,6 +510,7 @@ model, feature_columns, best_model_name = load_model_bundle()
 
 # Loading the saved metrics payload for technical display.
 metrics_payload = load_metrics_payload()
+
 
 # Rendering the hero header section at the top of the dashboard.
 st.markdown(
@@ -602,6 +614,19 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# Adding a collapsible guide to explain the meaning of each resource label.
+with st.expander("📘 Resource Type Guide"):
+    st.markdown("""
+**These labels represent categories of infrastructure, not individual rooms.**
+
+- **MPR_Equipped** → High-quality music practice rooms with better equipment and facilities. These usually attract the highest demand.
+- **MPR_Basic** → Standard practice rooms with essential facilities for regular use.
+- **MPR_Moldy** → Lower-quality practice rooms with poor conditions, so these are typically less preferred.
+- **MP_Lab** → Music Production Labs used for DAW-based production, editing, and digital music work.
+- **Live_Room** → Rooms used for live rehearsal, band practice, or performance-oriented sessions.
+- **Studio** → Professional recording spaces meant for higher-quality recording work.
+    """)
 
 # Creating four KPI cards across the screen for an instant operational summary.
 kpi1, kpi2, kpi3, kpi4 = st.columns(4, gap="large")
@@ -1012,6 +1037,7 @@ with main_right:
     # Closing the right-side glass-card container.
     st.markdown("</div>", unsafe_allow_html=True)
 
+
 # Creating a collapsible section for technical model information so the main dashboard stays clean for office users.
 with st.expander("Technical Model Details"):
     # Showing one short introductory line so the section feels connected to the product story.
@@ -1047,6 +1073,9 @@ with st.expander("Technical Model Details"):
         # Converting the list of rows into a DataFrame and sorting by RMSE.
         perf_df = pd.DataFrame(rows).sort_values("RMSE").reset_index(drop=True)
 
+        # Creating a numeric copy of WAPE before converting it into percentage strings for display.
+        perf_df["WAPE_num"] = perf_df["WAPE"]
+
         # Formatting the WAPE column into percentage form if it exists.
         if "WAPE" in perf_df.columns:
             perf_df["WAPE"] = perf_df["WAPE"].apply(lambda x: f"{x * 100:.2f}%" if pd.notnull(x) else x)
@@ -1067,7 +1096,7 @@ with st.expander("Technical Model Details"):
             )
 
             st.dataframe(
-                perf_df,
+                perf_df[["Model", "RMSE", "MAE", "R2", "WAPE"]],
                 use_container_width=True,
                 hide_index=True,
                 height=235,
@@ -1125,18 +1154,106 @@ with st.expander("Technical Model Details"):
             else:
                 st.info("Residual data is not available in the metrics file.")
 
-        # Showing the pressure guide below both side-by-side components.
-        st.markdown(
-            """
-            <div class="guide-box">
-                <div class="guide-title">Capacity Pressure Guide</div>
-                <div class="guide-text">
-                    Under 0.5 = Underused | 0.5–0.8 = Healthy | 0.8–1.6 = Near Capacity | Above 1.6 = Overloaded
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        # Creating a copy of the metrics table for dynamic interpretation logic.
+        metrics_interpret_df = perf_df.copy()
+
+        # Dynamically selecting the current best model using the lowest WAPE.
+        best_model_row = metrics_interpret_df.loc[metrics_interpret_df["WAPE_num"].idxmin()]
+
+        # Extracting the current best model name and its live metric values.
+        deployed_model_name = str(best_model_row["Model"])
+        rmse = float(best_model_row["RMSE"])
+        mae = float(best_model_row["MAE"])
+        r2 = float(best_model_row["R2"])
+        wape_num = float(best_model_row["WAPE_num"])
+        wape_display = f"{wape_num * 100:.2f}%"
+
+        # Finding the best metric values across all models for comparison.
+        lowest_rmse = float(metrics_interpret_df["RMSE"].min())
+        lowest_mae = float(metrics_interpret_df["MAE"].min())
+        highest_r2 = float(metrics_interpret_df["R2"].max())
+        lowest_wape = float(metrics_interpret_df["WAPE_num"].min())
+
+        # Calculating demand scale from the actual dashboard dataset so the explanation stays contextual.
+        avg_demand = float(data["booking_requests"].mean())
+        max_demand = float(data["booking_requests"].max())
+
+        # Creating short comparison labels.
+        rmse_rank_text = "the lowest" if rmse == lowest_rmse else "not the lowest"
+        mae_rank_text = "the lowest" if mae == lowest_mae else "not the lowest"
+        r2_rank_text = "the highest" if r2 == highest_r2 else "not the highest"
+        wape_rank_text = "the lowest" if wape_num == lowest_wape else "not the lowest"
+
+        # Showing the live deployed-model message across the full width before the two-column interpretation layout.
+        st.success(
+            f"Currently deployed model: **{deployed_model_name}**. "
+            f"The system selects this model dynamically based on the latest evaluation results."
         )
+
+        # Creating two columns so the explanation and overall interpretation sit side by side.
+        interpret_left, interpret_right = st.columns([1.5, 1], gap="large")
+
+        # Building the left side with metric definitions and current live interpretation.
+        with interpret_left:
+            st.markdown("### 📊 What do these model metrics mean?")
+            st.markdown("""
+- **RMSE (Root Mean Squared Error)** shows the typical size of prediction mistakes, while giving extra penalty to larger mistakes.
+- **MAE (Mean Absolute Error)** shows the average absolute difference between predicted demand and actual demand.
+- **R² (R-squared)** shows how well the model captures changes in booking demand across different situations.
+- **WAPE (Weighted Absolute Percentage Error)** shows the prediction error as a percentage of total actual demand.
+            """)
+
+            st.markdown("### 🧠 Interpreting the Current Model Results")
+            st.markdown(f"""
+- **RMSE = {rmse:.4f}**  
+  This means the model’s prediction error is typically about **{rmse:.2f} booking requests**.  
+  In this system, where demand values are usually around **{avg_demand:.2f} on average** and go up to about **{max_demand:.0f}**, an error of **{rmse:.2f}** is considered **low**.  
+  This is **{rmse_rank_text} RMSE** among all compared models.
+
+- **MAE = {mae:.4f}**  
+  On average, the model’s predictions differ from actual demand by about **{mae:.2f} booking requests**.  
+  This means the model is consistently staying close to the real booking values across different scenarios.  
+  This is **{mae_rank_text} MAE** in the table.
+
+- **R² = {r2:.4f}**  
+  This means the model explains about **{r2 * 100:.2f}%** of the variation in booking demand.  
+  In other words, it successfully captures most of the demand pattern changes caused by factors such as **resource type, time slot, exam phase, and capacity**.  
+  This is **{r2_rank_text} R²** among all models.
+
+- **WAPE = {wape_display}**  
+  This means the model’s total prediction error is about **{wape_display}** of total actual demand.  
+  In practical terms, this indicates that the model is making **reliable percentage-based predictions** for planning and operational analysis.  
+  This is **{wape_rank_text} WAPE** in the table.
+            """)
+
+        # Building the right side with the summary interpretation and pressure guide.
+        with interpret_right:
+            st.markdown("### ✅ Overall Interpretation")
+            st.markdown(f"""
+The currently deployed model, **{deployed_model_name}**, shows:
+
+- **Low prediction error** through RMSE and MAE
+- **Strong pattern capture** through a high R² score
+- **Reliable percentage-based accuracy** through WAPE
+
+This means the model is suitable for:
+
+- predicting booking demand,
+- identifying pressure trends,
+- and supporting infrastructure capacity planning decisions.
+            """)
+
+            st.markdown(
+                """
+                <div class="guide-box">
+                    <div class="guide-title">Capacity Pressure Guide</div>
+                    <div class="guide-text">
+                        Under 0.5 = Underused | 0.5–0.8 = Healthy | 0.8–1.6 = Near Capacity | Above 1.6 = Overloaded
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
     # Showing a note if no metrics file is found yet.
     else:

@@ -307,6 +307,12 @@ st.markdown(
         color: #c8d5e8;
         line-height: 1.6;
     }
+
+    /* Left-aligning dataframe table header and cell text so RMSE, MAE, and R2 match the visual style of Model and WAPE. */
+    [data-testid="stDataFrame"] table th,
+    [data-testid="stDataFrame"] table td {
+        text-align: left !important;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -1008,13 +1014,13 @@ with main_right:
             unsafe_allow_html=True,
         )
 
-        # Rendering the predicted capacity pressure with a business label and colored pill.
+        # Rendering the predicted capacity pressure.
+        # The duplicate colored status capsule has been removed because the same label already appears beside the pressure value.
         st.markdown(
             f"""
             <div style="margin-top:0.9rem;">
                 <div class="mini-label">Expected Capacity Pressure</div>
                 <div class="big-value">{predicted_pressure:.2f} · {predicted_pressure_label}</div>
-                {render_status_pill(predicted_pressure)}
                 <div class="helper-text">Calculated as expected demand divided by effective capacity.</div>
             </div>
             """,
@@ -1075,6 +1081,11 @@ with st.expander("Technical Model Details"):
 
         # Creating a numeric copy of WAPE before converting it into percentage strings for display.
         perf_df["WAPE_num"] = perf_df["WAPE"]
+
+        # Formatting numeric evaluation columns into consistent display strings so the dataframe looks clean and left-aligned.
+        perf_df["RMSE"] = perf_df["RMSE"].apply(lambda x: f"{x:.4f}" if pd.notnull(x) else x)
+        perf_df["MAE"] = perf_df["MAE"].apply(lambda x: f"{x:.4f}" if pd.notnull(x) else x)
+        perf_df["R2"] = perf_df["R2"].apply(lambda x: f"{x:.4f}" if pd.notnull(x) else x)
 
         # Formatting the WAPE column into percentage form if it exists.
         if "WAPE" in perf_df.columns:
@@ -1155,7 +1166,8 @@ with st.expander("Technical Model Details"):
                 st.info("Residual data is not available in the metrics file.")
 
         # Creating a copy of the metrics table for dynamic interpretation logic.
-        metrics_interpret_df = perf_df.copy()
+        metrics_interpret_df = pd.DataFrame(rows).sort_values("RMSE").reset_index(drop=True)
+        metrics_interpret_df["WAPE_num"] = metrics_interpret_df["WAPE"]
 
         # Dynamically selecting the current best model using the lowest WAPE.
         best_model_row = metrics_interpret_df.loc[metrics_interpret_df["WAPE_num"].idxmin()]
